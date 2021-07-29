@@ -1,0 +1,57 @@
+- name: beainstall
+  bindir: /opt/dynarose/beainstall/bin
+  cmd: ./beainstall -pubport 8001
+- name: probenat
+  bindir: /opt/dynarose/probenat/bin
+  cmd: ./probenat -pubport 100011
+- name: sysadmin
+  bindir: /opt/dynarose/sysadmin/bin
+  cmd: ./sysadmin -workdir=/opt/dynarose/sysadmin
+- name: configcenter
+  bindir: /opt/dynarose/configcenter/bin
+  cmd: ./configcenter -workdir=/opt/dynarose/configcenter
+- name: nodemanage
+  bindir: /opt/dynarose/nodemanage/bin
+  cmd: ./nodemanage -workdir=/opt/dynarose/nodemanage
+- name: connrelation0
+  bindir: /opt/dynarose/connrelation/bin
+  cmd: ./connrelation -workdir=/opt/dynarose/connrelation
+- name: operatorlog
+  bindir: /opt/dynarose/operatorlog/bin
+  cmd: ./operatorlog -workdir=/opt/dynarose/operatorlog
+- name: nodeserver
+  bindir: /opt/dynarose/nodeserver/bin
+  cmd: ./nodeserver -workdir=/opt/dynarose/nodeserver
+- name: collectserver
+  bindir: /opt/dynarose/collectserver/bin
+  cmd: ./collectserver -workdir=/opt/dynarose/collectserver
+- name: fwserver
+  bindir: /opt/dynarose/fwserver/bin
+  cmd: ./fwserver -workdir=/opt/dynarose/fwserver
+- name: adaptiveengine
+  bindir: /opt/dynarose/adaptiveengine/bin
+  cmd: ./adaptiveengine -workdir=/opt/dynarose/adaptiveengine
+- name: restfulapi
+  bindir: /opt/dynarose/restfulapi/bin
+  cmd: ./restfulapi -workdir=/opt/dynarose/restfulapi
+- name: webservice
+  bindir: /opt/dynarose/webservice/bin
+  cmd: ./webservice -workdir=/opt/dynarose/webservice -pubport 7000
+- name: blocklogservice0
+  bindir: /opt/dynarose/blocklog/bin
+  cmd: ./blocklog -workdir=/opt/dynarose/blocklog
+- name: syslog
+  bindir: /opt/dynarose/syslog/bin
+  cmd: ./syslog -workdir=/opt/dynarose/syslog
+- name: alarmservice
+  bindir: /opt/dynarose/alarmservice/bin
+  cmd: ./alarmservice -workdir=/opt/dynarose/alarmservice
+- name: vulnscan
+  bindir: /opt/dynarose/vulnscan/bin
+  cmd: ./vulnscan -workdir=/opt/dynarose/vulnscan
+- name: userserver
+  bindir: /opt/dynarose/userserver/bin
+  cmd: ./userserver -workdir=/opt/dynarose/userserver
+- name: identitylog0
+  bindir: /opt/dynarose/identitylog/bin
+  cmd: ./identitylog -workdir=/opt/dynarose/identitylog

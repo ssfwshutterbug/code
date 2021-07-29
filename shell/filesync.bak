@@ -1,0 +1,121 @@
+#!/usr/bin/zsh
+
+############################## 手动指定备份和需要备份的目录 #########################################
+# 备份地址，也可以通过传参数的方式指定
+destination=~/Data/linux
+
+# 需要备份的文件或目录,需要手动指定,限定以origion开头
+# user settings
+origion_dunst=~/.config/dunst
+origion_picom=~/.config/picom
+origion_polybar=~/.config/polybar
+origion_ranger=~/.config/ranger
+origion_vim=~/.vim
+origion_vimcfg=~/.vimrc
+origion_zsh=~/.oh-my-zsh
+origion_zshcfg=~/.zshrc
+origion_xinit=~/.xinitrc
+origion_Xresource=~/.Xresources
+origion_Xmodmap=~/.Xmodmap
+origion_xmonad=~/.xmonad/xmonad.hs
+origion_pam=~/.pam_environment
+origion_zprofile=~/.zprofile
+origion_cmd=~/.local/bin
+origion_note=~/Data/note
+origion_img=~/Pictures/
+origion_pythonlib=~/.local/lib/python3.9
+origion_pipconf=~/.config/pip
+# system settings
+origion_img=/etc/profile
+origion_img=/etc/pacman.conf
+origion_img=/etc/docker/daemon.json
+origion_img=/etc/hosts
+
+#####################################################################################################
+
+
+
+# 取消无用消息输出
+exec 4>&1
+exec 1>/dev/null
+
+# 函数：输出必要的信息
+function log(){
+    exec 1>&4
+    if [ $# -gt 0 ];then
+        info=$@
+        echo "[$(date '+%F %H:%M')] :: $info"
+        dunstify "[$(date '+%F %H:%M')] :: $info"
+    fi
+    exec 1>/dev/null
+    unset info
+}
+
+# 判断是否通过参数来指定备份目录及其合法性
+[ $# -eq 1 ] && {
+    if [ -d $1 ] ;then
+        destination=$1
+    else
+        log "location specified is wrong,please check again!"
+        exit
+    fi
+}
+
+# 将相对路径替换为绝对路径并加入数组
+declare -a all_file
+i=1
+user=`whoami`
+script=$0
+for f in `egrep '^origion' $script 2>/dev/null | awk -F= '{print $2}'`
+do
+    if echo $f | grep '~' && f=${f/\~//home/$user}
+    all_file[i]=$f
+    let i++
+done
+unset f
+unset i
+
+# 函数：检查需要备份的文件或目录是否存在
+function check_ori_exist(){
+    for f in ${all_file}
+    do
+        echo $f
+        [[ ! -d $f && ! -f $f ]] && log origional $f not exist,please check
+    done
+    unset f
+}
+
+# 函数： 检查备份目录是否存在
+function check_dec_exist(){
+    [ ! -d $destination ] && log $destination directory not available,please check && exit
+}
+
+# 函数： 用diff -r递归比较文件是否存在差异，以为很慢，没想到超级快。如果不同那么就复制一份过去
+function diff_compire(){
+    for f in ${all_file}
+    do
+        # 用时间比较并不准确，因为原文件的修改时间远远早于新建的文件，所以时间差异很大，无法判断，需要比较文件内容
+        #ori_access_time=$(stat -c %Y $f)
+        #[[ -d ${destination}/`basename ${f}` || -f ${destination}/`basename ${f}` ]] && dec_access_time=$(stat -c %Y ${destination}/`basename ${f}`)
+        #[[ $((${dec_access_time:=0} - ${ori_access_time})) -gt 40000 ]] && cp -r $f ${destination} && log update $f
+        if [[ -d ${destination}/`basename ${f}` || -f ${destination}/`basename ${f}` ]];then
+            diff -r $f ${destination}/`basename ${f}`
+            [ $? -ne 0 ] && rm -rf ${destination}/`basename ${f}` && {
+                cp -rp $f ${destination} 
+                log updated $f
+            }
+        else
+            cp -rp $f ${destination} && log updated $f
+            log "new file added to $destination"
+        fi
+    done
+    unset f
+}
+
+# 检查并进行同步
+check_ori_exist
+check_dec_exist
+diff_compire
+
+unset -v destination origional user all_file script
+unset -f log check_ori_exist check_dec_exist diff_compire

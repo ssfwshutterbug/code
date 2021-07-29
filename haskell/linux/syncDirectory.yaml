@@ -1,0 +1,39 @@
+
+userSetting:
+  - origion_dunst: ~/.config/dunst
+  - origion_picom: ~/.config/picom
+  - origion_go_env: ~/.config/go/env
+  - origion_pipconf: ~/.config/pip
+  - origion_psd: ~/.config/psd
+  - origion_cursor_theme1: ~/.config/gtk-3.0
+  - origion_xmobar: ~/.config/xmobar
+  - origion_ranger: ~/.config/ranger
+  - origion_polybar: ~/.config/polybar
+  - origion_vim: ~/.vim
+  - origion_vimcfg: ~/.vimrc
+  - origion_zsh: ~/.oh-my-zsh
+  - origion_zshcfg: ~/.zshrc
+  - origion_xinit: ~/.xinitrc
+  - origion_Xresource: ~/.Xresources
+  - origion_Xmodmap: ~/.Xmodmap
+  - origion_xmonad: ~/.xmonad/xmonad.hs
+  - origion_pam: ~/.pam_environment
+  - origion_zprofile: ~/.zprofile
+  - origion_note: ~/Public/note
+  - origion_img: ~/Pictures/
+  - origion_sound: ~/Public/sound
+  - origion_cursor_theme3: ~/.icons
+  - origion_cursor_theme2: ~/.themes
+  - origion_cmd: ~/.local/bin
+  - origion_apps: ~/.local/apps
+  - origion_pythonlib: ~/.local/lib/python3.9
+
+systemSettings:
+  - origion_profile: /etc/profile
+  - origion_paconf: /etc/pacman.conf
+  - origion_dock: /etc/docker/daemon.json
+  - origion_hosts: /etc/hosts
+  - origion_asd: /etc/asd.conf
+
+needlessCmp:
+  - origion_apps: ~/.local/apps
